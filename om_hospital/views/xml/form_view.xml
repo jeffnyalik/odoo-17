@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_hospital_form_view" model="ir.ui.view">
+        <field name="name">hospital.patient.form</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <form string="Patients Form">
+                <sheet>
+                    <group>
+                        <group name="left" string="General Details">
+                            <field name="name"/>
+                            <field name="is_child"/>
+                        </group>
+                        <group name="right" string="More Details">
+                            <field name="age"/>
+                            <field name="gender" width="50"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="More Information">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
