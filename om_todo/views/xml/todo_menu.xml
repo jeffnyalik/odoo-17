@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="menu_todos_root" action="actions_todos_task" name="Todo Task" sequence="10"/>
+    <menuitem id="menu_todos"
+              parent="menu_todos_root"
+              action="actions_todos_task"
+              name="Tasks"
+              sequence="10"/>
+</odoo>
