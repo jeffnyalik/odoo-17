@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_estate_property_filter" model="ir.ui.view">
+        <field name="name">estate.property.search</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <search>
+                <!--    Filter for available properties            -->
+                <filter string="Available properties"
+                        domain="[('state', 'in', ['new', 'offer received'])]"
+                        name="available_properties"/>
+                <!-- Group by postcode -->
+                <group expand="0" string="Group by Postcode">
+                    <filter string="Postcode" name="group_by_postcode" context="{'group_by': 'postcode'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>
