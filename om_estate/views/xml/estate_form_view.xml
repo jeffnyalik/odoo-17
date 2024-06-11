@@ -45,6 +45,24 @@
                                 </group>
                             </group>
                         </page>
+                        <page string="Offers">
+                            <field name="offer_ids">
+                                <tree string="Property Offers">
+                                    <field name="price" string="Price"/>
+                                    <field name="partner_id" string="Partner"/>
+                                    <field name="status" string="Status"/>
+                                </tree>
+                                <form string="Property Offers Form">
+                                    <sheet>
+                                        <group>
+                                            <field name="price" string="Price"/>
+                                            <field name="partner_id" string="Partner"/>
+                                            <field name="status" string="Status"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
                     </notebook>
                 </sheet>
             </form>

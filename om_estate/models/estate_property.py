@@ -45,6 +45,9 @@ class EstateProperty(models.Model):
     seller = fields.Many2one("res.users", string="Salesman",
                              default=lambda self:self.env.user,
                              index=True)
+    offer_ids = fields.One2many("estate.property.offer",
+                                "property_id",
+                                string="Property offers")
     # active = fields.Boolean(string="Active", default=True)
 
     class EstatePropertyType(models.Model):

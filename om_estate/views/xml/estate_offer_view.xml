@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="estate_offer_form_view" model="ir.ui.view">
+        <field name="name">Real Estate Property Offers</field>
+        <field name="model">estate.property.offer</field>
+        <field name="arch" type="xml">
+            <form string="Real estate Offer form">
+                <sheet>
+                    <group>
+                        <group name="group_left">
+                            <field name="price" string="Price"/>
+                            <field name="partner_id" string="Partner"/>
+                            <field name="status" string="Status"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
