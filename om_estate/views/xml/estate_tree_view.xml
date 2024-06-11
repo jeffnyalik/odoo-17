@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="estate_tree_view_form" model="ir.ui.view">
+    <record id="estate_tree_view" model="ir.ui.view">
         <field name="name">Real Estate Tree View</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <tree string="Estate tree view">
                 <field name="name" string="Title"/>
-                <field name="postcode" string="PostCode"/>
-                <field name="bedrooms" string="Bedrooms"/>
-                <field name="living_area" string="Living area(sqm)"/>
+                <field name="postcode"/>
+                <field name="property_type_id" string="Property Type"/>
+                <field name="bedrooms" string="No. Bedrooms"/>
+                <field name="living_area"/>
                 <field name="expected_price"/>
                 <field name="selling_price"/>
-                <field name="date_availability" string="Available From"/>
+                <field name="date_availability"/>
             </tree>
         </field>
     </record>

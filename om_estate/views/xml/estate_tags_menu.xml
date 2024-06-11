@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="estate_tags_menu" name="Tags"
+              parent="estate_settings_menu"
+              action="estate_tags_actions"
+              sequence="10"/>
+</odoo>

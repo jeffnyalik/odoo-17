@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="estate_settings_menu" name="Settings" parent="estate_root_menu" sequence="10"/>
+    <menuitem id="estate_property_types_menu"
+              action="om_estate.estate_type_actions_view"
+              name="Property Types" parent="estate_settings_menu" sequence="10"/>
+</odoo>

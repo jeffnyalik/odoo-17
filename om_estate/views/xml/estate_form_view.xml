@@ -4,7 +4,7 @@
         <field name="name">Real Estate Form View</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <form string="Real estate form string">
+            <form string="Real Estate Form">
                 <sheet>
                     <group>
                         <group name="group_left">
@@ -16,6 +16,7 @@
                             <field name="expected_price"/>
                             <field name="selling_price"/>
                             <field name="state"/>
+                            <field name="property_type_id" string="Property Type"/>
                         </group>
                     </group>
                     <notebook>
@@ -26,12 +27,21 @@
                                     <field name="facades" string="Facades"/>
                                     <field name="garage" string="Garage"/>
                                     <field name="garden" string="Garden"/>
+                                    <field name="tags_id" widget="many2many_tags"/>
                                 </group>
                                 <group name="group_right">
                                     <field name="description" string="Description"/>
                                     <field name="garden_area" string="Garden area(sqm)"/>
                                     <field name="garden_orientation" string="Garden orientation"/>
                                     <field name="bedrooms" string="Bedrooms"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Other info">
+                            <group>
+                                <group>
+                                    <field name="buyer"/>
+                                    <field name="seller"/>
                                 </group>
                             </group>
                         </page>

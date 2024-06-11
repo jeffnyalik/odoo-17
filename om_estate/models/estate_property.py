@@ -39,4 +39,33 @@ class EstateProperty(models.Model):
         copy=False,
         default="new"
     )
-    active = fields.Boolean(string="Active", default=False)
+    property_type_id = fields.Many2one("estate.property.type", ondelete=None)
+    tags_id = fields.Many2many("estate.property.tag", string="Tags")
+    buyer = fields.Many2one("res.partner", string="Customer", copy=False)
+    seller = fields.Many2one("res.users", string="Salesman",
+                             default=lambda self:self.env.user,
+                             index=True)
+    # active = fields.Boolean(string="Active", default=True)
+
+    class EstatePropertyType(models.Model):
+        _name = "estate.property.type"
+        _description = "Estate property type"
+
+        name = fields.Char(string="Type", required=True)
+
+    class EstatePropertyTag(models.Model):
+        _name = "estate.property.tag"
+        _description = "Property tags model"
+
+        name = fields.Char(string="Tag", required=True)
+
+    class EstatePropertyOffer(models.Model):
+        _name = "estate.property.offer"
+        _description = "Property offer model"
+        price = fields.Float("Price", required=False)
+        partner_id = fields.Many2one("res.partner", required=True)
+        property_id = fields.Many2one("estate.property", required=True)
+        status = fields.Selection([("accepted", "Accepted"), ("refused", "Refused")], copy=False)
+
+
+

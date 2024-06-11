@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="estate_prop_type_view_form" model="ir.ui.view">
+        <field name="name">Real Estate Property Type Form View</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <form string="Real estate form string">
+                <sheet>
+                    <group>
+                        <group name="group_left">
+                            <field name="name" string="Property Type"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="More information">
+                            <field name="name"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
