@@ -11,12 +11,14 @@
                             <field name="name" string="Name"/>
                             <field name="postcode"/>
                             <field name="date_availability"/>
+                            <field name="total_area" string="Total"/>
                         </group>
                         <group name="group_right">
                             <field name="expected_price"/>
                             <field name="selling_price"/>
                             <field name="state"/>
                             <field name="property_type_id" string="Property Type"/>
+                            <field name="best_price" string="Best Offer" readonly="1"/>
                         </group>
                     </group>
                     <notebook>

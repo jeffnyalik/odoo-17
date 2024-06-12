@@ -48,6 +48,27 @@ class EstateProperty(models.Model):
     offer_ids = fields.One2many("estate.property.offer",
                                 "property_id",
                                 string="Property offers")
+    total_area = fields.Float(string="Total Area", compute="_computeTotal")
+    best_price = fields.Float(string="Best Offer", compute="_compute_best_price", store=True)
+
+    # Compute the sum of the living area and garden area
+    @api.depends("living_area", "garden_area")
+    def _computeTotal(self):
+        for rec in self:
+            rec.total_area = (rec.living_area + rec.garden_area)
+            return rec.total_area
+        return True
+
+    @api.depends("offer_ids.price")
+    def _compute_best_price(self):
+        for rec in self:
+            if rec.offer_ids:
+                rec.best_price = max(rec.offer_ids.mapped('price'))
+            else:
+                rec.best_price = "0.0"
+        return
+
+
     # active = fields.Boolean(string="Active", default=True)
 
     class EstatePropertyType(models.Model):
