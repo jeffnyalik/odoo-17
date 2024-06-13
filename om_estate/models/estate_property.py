@@ -50,6 +50,27 @@ class EstateProperty(models.Model):
                                 string="Property offers")
     total_area = fields.Float(string="Total Area", compute="_computeTotal")
     best_price = fields.Float(string="Best Offer", compute="_compute_best_price", store=True)
+    validity = fields.Integer("Validity period", default=7)
+    date_deadline = fields.Date(string="Deadline", compute="_compute_date_deadline", inverse="_inverse_date_deadline")
+
+    @api.depends("create_date", "validity")
+    def _compute_date_deadline(self):
+        for rec in self:
+            if rec.create_date:
+                rec.date_deadline = (rec.create_date + timedelta(days=rec.validity))
+            else:
+                rec.date_deadline = fields.Date.today() + timedelta(days=rec.validity)
+        return
+
+    def _inverse_date_deadline(self):
+        for rec in self:
+            if rec.create_date and rec.date_deadline:
+                duration = (rec.date_deadline - rec.create_date.date()).days
+                rec.validity = duration
+            else:
+                rec.validity = 7
+        return
+
 
     # Compute the sum of the living area and garden area
     @api.depends("living_area", "garden_area")
