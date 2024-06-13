@@ -1,4 +1,5 @@
 from odoo import api, models, fields
+from odoo.exceptions import ValidationError, UserError
 from datetime import datetime, timedelta
 class EstateProperty(models.Model):
     _name = "estate.property"
@@ -39,9 +40,10 @@ class EstateProperty(models.Model):
         copy=False,
         default="new"
     )
-    property_type_id = fields.Many2one("estate.property.type", ondelete=None)
+    property_type_id = fields.Many2one("estate.property.type",ondelete=None)
     tags_id = fields.Many2many("estate.property.tag", string="Tags")
     buyer = fields.Many2one("res.partner", string="Customer", copy=False)
+    type_ids = fields.Many2one("estate.property.type", string="Property types")
     seller = fields.Many2one("res.users", string="Salesman",
                              default=lambda self:self.env.user,
                              index=True)
@@ -52,6 +54,27 @@ class EstateProperty(models.Model):
     best_price = fields.Float(string="Best Offer", compute="_compute_best_price", store=True)
     validity = fields.Integer("Validity period", default=7)
     date_deadline = fields.Date(string="Deadline", compute="_compute_date_deadline", inverse="_inverse_date_deadline")
+
+
+    def action_cancel(self):
+        for rec in self:
+            if rec.state:
+                rec.state = "canceled"
+        return True
+
+    def action_sold(self):
+        for rec in self:
+            if rec.state == "canceled":
+                raise UserError("A canceled property can not be sold")
+            elif rec.state == "sold":
+                rec.state = "sold"
+                # raise UserError("Sold value has already been set")
+            else:
+                # Assign the value to sold
+                rec.state == "sold"
+
+        return True
+
 
     @api.depends("create_date", "validity")
     def _compute_date_deadline(self):
@@ -71,6 +94,11 @@ class EstateProperty(models.Model):
                 rec.validity = 7
         return
 
+    # Onchange garden area and orientation
+    @api.onchange("garden_area", "garden_orientation")
+    def _onchange_area_orientation(self):
+        self.garden_area = 200
+        self.garden_orientation = "north"
 
     # Compute the sum of the living area and garden area
     @api.depends("living_area", "garden_area")
@@ -97,12 +125,20 @@ class EstateProperty(models.Model):
         _description = "Estate property type"
 
         name = fields.Char(string="Type", required=True)
+        property_ids = fields.One2many("estate.property","property_type_id")
+
+        def get_offers(self):
+            pass
+
+        def offers_count(self):
+            pass
 
     class EstatePropertyTag(models.Model):
         _name = "estate.property.tag"
         _description = "Property tags model"
 
         name = fields.Char(string="Tag", required=True)
+        color = fields.Integer(string="Color")
 
     class EstatePropertyOffer(models.Model):
         _name = "estate.property.offer"
@@ -110,7 +146,24 @@ class EstateProperty(models.Model):
         price = fields.Float("Price", required=False)
         partner_id = fields.Many2one("res.partner", required=True)
         property_id = fields.Many2one("estate.property", required=True)
-        status = fields.Selection([("accepted", "Accepted"), ("refused", "Refused")], copy=False)
+        status = fields.Selection([("new", "New"),
+                                   ("accepted", "Accepted"),
+                                   ("refused", "Refused")], default="new", copy=False)
+
+        def action_accept(self):
+            for rec in self:
+                if rec.status == "accepted":
+                    rec.status == "accepted"
+                    rec.property_id.selling_price = rec.property_id.expected_price
+            return True
+
+        def action_refuse(self):
+            for rec in self:
+                if rec.status and rec.status == "refused":
+                    rec.property_id.selling_price = 0.0
+                    rec.property_id.expected_price = rec.property_id.expected_price
+            return True
+
 
 
 

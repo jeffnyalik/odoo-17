@@ -16,7 +16,7 @@
 
         "views/xml/estate_type_actions.xml",
         "views/xml/estate_types_menu.xml",
-        # "views/xml/estate_property_type_tree.xml",
+        "views/xml/estate_property_type_tree.xml",
         "views/xml/estate_prop_type_view.xml",
 
 

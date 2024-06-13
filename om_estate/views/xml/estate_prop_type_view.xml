@@ -6,14 +6,27 @@
         <field name="arch" type="xml">
             <form string="Real estate form string">
                 <sheet>
+                    <div name="oe_button_box">
+                        <button class="oe_stat_button" type="object" icon="fa-car" name="get_offers">
+                            <field string="Offers" name="property_ids" widget="statinfo"/>
+                        </button>
+                    </div>
                     <group>
                         <group name="group_left">
                             <field name="name" string="Property Type"/>
                         </group>
                     </group>
                     <notebook>
-                        <page string="More information">
-                            <field name="name"/>
+                        <page string="Properties">
+                            <field name="property_ids">
+                                <tree create="0" delete="0">
+                                    <field name="name"/>
+                                    <field name="expected_price"/>
+                                    <field name="selling_price"/>
+                                    <field name="date_availability"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
                         </page>
                     </notebook>
                 </sheet>
