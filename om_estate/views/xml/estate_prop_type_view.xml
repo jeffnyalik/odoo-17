@@ -6,9 +6,14 @@
         <field name="arch" type="xml">
             <form string="Real estate form string">
                 <sheet>
-                    <div name="oe_button_box">
-                        <button class="oe_stat_button" type="object" icon="fa-car" name="get_offers">
-                            <field string="Offers" name="property_ids" widget="statinfo"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_properties"
+                                icon="fa-home"
+                                class="oe_stat_button" type="object">
+                            <div class="oe_field_widget oe_stat_info">
+                                <field name="property_count"/>
+                                <span class="o_stat_text">Properties</span>
+                            </div>
                         </button>
                     </div>
                     <group>

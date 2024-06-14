@@ -126,12 +126,24 @@ class EstateProperty(models.Model):
 
         name = fields.Char(string="Type", required=True)
         property_ids = fields.One2many("estate.property","property_type_id")
+        offer_ids = fields.One2many("estate.property.offer", "property_type_id")
+        property_count = fields.Integer(string="Number of properties", compute="_compute_property_count")
 
-        def get_offers(self):
-            pass
+        @api.depends("property_ids")
+        def _compute_property_count(self):
+            for rec in self:
+                rec.property_count = len(rec.property_ids)
 
-        def offers_count(self):
-            pass
+        def action_open_properties(self):
+            self.ensure_one()
+            return {
+                'type': 'ir.actions.act_window',
+                'name': 'Properties',
+                'view_mode': 'tree,form',
+                'res_model': 'estate.property',
+                'domain': [('property_type_id', '=', self.id)],
+                'context': {'default_property_type_id': self.id},
+            }
 
     class EstatePropertyTag(models.Model):
         _name = "estate.property.tag"
@@ -146,6 +158,7 @@ class EstateProperty(models.Model):
         price = fields.Float("Price", required=False)
         partner_id = fields.Many2one("res.partner", required=True)
         property_id = fields.Many2one("estate.property", required=True)
+        property_type_id = fields.Many2one("estate.property.type", )
         status = fields.Selection([("new", "New"),
                                    ("accepted", "Accepted"),
                                    ("refused", "Refused")], default="new", copy=False)

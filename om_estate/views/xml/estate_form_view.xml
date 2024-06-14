@@ -11,7 +11,6 @@
                     <button name="action_sold" type="object" string="Sold"/>
                     <field name="state" widget="statusbar"
                            statusbar_visible="new,offer received,offer accepted,sold"/>
-
                 </header>
                 <sheet>
                     <group>
