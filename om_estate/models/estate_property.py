@@ -55,6 +55,18 @@ class EstateProperty(models.Model):
     validity = fields.Integer("Validity period", default=7)
     date_deadline = fields.Date(string="Deadline", compute="_compute_date_deadline", inverse="_inverse_date_deadline")
 
+    @api.ondelete(at_uninstall=False)
+    def unlink_if_new_or_canceled(self):
+        for rec in self:
+            if rec.state not in ['new', 'canceled']:
+                raise UserError("You can not delete a property that is not new or canceled")
+
+    @api.model
+    def create(self, vals):
+        vals["state"] = "offer received"
+        print("Customization", vals)
+        return super(EstateProperty, self).create(vals)
+
 
     def action_cancel(self):
         for rec in self:

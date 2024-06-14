@@ -2,7 +2,7 @@
     "name": "Real estate",
     "author": "Jeff Nyalik",
 
-    "depends": ["base"],
+    "depends": ["base", "mail", "hr"],
     "data": [
         "security/ir.model.access.csv",
         "views/xml/estate_menu.xml",
@@ -18,8 +18,7 @@
         "views/xml/estate_types_menu.xml",
         "views/xml/estate_property_type_tree.xml",
         "views/xml/estate_prop_type_view.xml",
-
-
+        "views/xml/users_inherit.xml"
 
     ],
     "application": True,
