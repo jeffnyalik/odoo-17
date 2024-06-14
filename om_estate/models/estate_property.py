@@ -80,6 +80,7 @@ class EstateProperty(models.Model):
                 raise UserError("A canceled property can not be sold")
             elif rec.state == "sold":
                 rec.state = "sold"
+                print("action clicked")
                 # raise UserError("Sold value has already been set")
             else:
                 # Assign the value to sold
