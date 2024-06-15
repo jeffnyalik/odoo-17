@@ -13,6 +13,7 @@
         "views/xml/estate_tree_view.xml",
         "views/xml/estate_search_view.xml",
         "views/xml/estate_tree_view.xml",
+        "views/xml/estate_kanban_view.xml",
 
         "views/xml/estate_type_actions.xml",
         "views/xml/estate_types_menu.xml",
