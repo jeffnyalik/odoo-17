@@ -5,6 +5,7 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <tree string="Estate tree view">
+                <field name="reference"/>
                 <field name="name" string="Title"/>
                 <field name="postcode"/>
                 <field name="property_type_id" string="Property Type"/>

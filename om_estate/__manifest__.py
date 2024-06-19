@@ -19,7 +19,8 @@
         "views/xml/estate_types_menu.xml",
         "views/xml/estate_property_type_tree.xml",
         "views/xml/estate_prop_type_view.xml",
-        "views/xml/users_inherit.xml"
+        "views/xml/users_inherit.xml",
+        "data/data.xml" ## sequential value
 
     ],
     "application": True,

@@ -1,4 +1,4 @@
-from odoo import api, models, fields
+from odoo import api, models, fields, _
 from odoo.exceptions import ValidationError, UserError
 from datetime import datetime, timedelta
 class EstateProperty(models.Model):
@@ -8,6 +8,11 @@ class EstateProperty(models.Model):
     # define the model fields
     name = fields.Char(string="Name", required=True)
     description = fields.Text(string="Description")
+    reference = fields.Char("Reference", required=True,
+                            readonly=True,
+                            copy=False,
+                            default=lambda self: _("New")
+                            )
     postcode = fields.Char(string="Postal Code")
     date_availability = fields.Date(
         string="Availability Date",
@@ -65,6 +70,8 @@ class EstateProperty(models.Model):
     def create(self, vals):
         vals["state"] = "offer received"
         print("Customization", vals)
+        if vals.get("reference", _("New")) == _("New"):
+            vals["reference"] = self.env["ir.sequence"].next_by_code("estate.property") or _("New")
         return super(EstateProperty, self).create(vals)
 
 
